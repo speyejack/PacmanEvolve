@@ -1,0 +1,40 @@
+URL: http://nn.cs.utexas.edu/downloads/papers/stanley.ec02.pdf
+
+NEAT - Neural Evolution through Augmenting Topologies
+
+2.1.4 NEAT uses direct encoding
+
+2.2-END- Talks about historical origin, and how this is natures way of preventing the competing conventions problem and loss of crucial data
+
+2.3- Talks about speciation(niching), (species)
+Node added to geneome w/o connection...
+genes = nodes? or links? - They're both, node gene and link gene
+species = group of simliar geonomes
+generation = group of species
+geonome = configuration, (data structure) = Genotype
+network = network (visualiation) = Phenotype - doesn't include disabled genes
+Use explicit fitness sharing to weed out the worst in the species rather than the worst of population
+
+2.4-Initalization
+start minimally
+allowed without complication due to speciation
+
+
+---3---
+
+Inovation number of a gene is top number in each genome
+Node gene mentioned at end of figure 3
+
+3.1- Genetic Encoding
+Beginning discribes gene characteristics
+Node gene: list of inputs, hidden nodes, and outputs
+Connection gene: in-node, out-node, weight, enabled
+3 types of mutations: weighted mutation, adding connection (between two unconnected), adding node (existing connection is split, new connection weight between prev and cur = 1, new connect between cur & next = old connect weight)
+
+3.2 - Tracking genes through historical markings (innovation number)
+Innovation number is talked about in 2nd para. Global num that whenever a mutation occurs the new genes are assigned to it
+Procedure for breeding at bottom
+
+3.3 - Using species
+This explains species
+

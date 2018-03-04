@@ -767,21 +767,19 @@ function playTop(level, pool)
 end
 
 function loadLevel(filename)
-	local level = {}
-	local file = io.open(filename,"r")
-	local switch = {["#"] = 1,["o"] = 0,["."] = 0,[" "] = 0}
-	local y = 0
-	for line in file:lines(filename) do
-		--console.write(line)
-		y = y + 1
-		level[#level + 1] = {}
-		for x = 1,#line do
-			--console.write(switch[string.sub(line,x,x)])
-			table.insert(level[y],switch[line.sub(line,x,x)])
-		end
-	end
-	file:close()
-	return level
+   local levelFile = assert(io.open(filename, "r"))
+   local levelString = levelFile:read("*all")
+   
+   local switch = {["#"] = 1,["o"] = 0,["."] = 0,[" "] = 0}
+   local level = {}
+   levelString:gsub(".-\n",
+					function(s)
+					   s = s:gsub("[%c]","")
+					   levelRow = {}
+					   s:gsub(".", function(c) table.insert(levelRow, switch[c]) end) 
+					   table.insert(level, levelRow)
+   end)
+   return level
 end
 
 function savePool(filename, pool)
@@ -940,7 +938,9 @@ function getInputs(level)
 	
 	for dy = -InputRadius, InputRadius do
 		for dx = -InputRadius, InputRadius do
-			if ((pacX + dx >= 1) and (pacX + dx <= xBound) and (pacY + dy >= 1) and (pacY + dy <= yBound)) then
+			if ((pacX + dx >= 1) and (pacX + dx <= xBound) and (pacY + dy >= 1) and (pacY + dy < yBound)) then
+				--console.write((pacX + dx) .. ":" .. (pacY + dy) .. " - " .. #level .. ":" .. #level[1] .. "\n")
+				console.write()
 				input[#input + 1] = level[pacY + dy][pacX + dx]
 				for _,ghost in pairs(ghosts) do
 					if (input[#input] == 0 and -ghost.x == dx and -ghost.y == dy) then
